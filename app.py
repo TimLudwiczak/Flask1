@@ -1,8 +1,19 @@
 from flask import Flask, jsonify
-app = FLask(__name__)
 import csv
 
-@app.route('/advance_students/')
+app = Flask(__name__)
+
+def load_students():
+    students = []
+    with open('students.csv', mode='r', newline='') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            students.append(row)
+    return students
+
+students = load_students()
+
+@app.route('/students/under_21_with_A')
 def advance_students():
     result = [student for student in students if student['age'] < 21 and student['grade'] == 'A']
     return jsonify(result)
