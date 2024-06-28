@@ -13,10 +13,21 @@ def load_students():
 
 students = load_students()
 
-@app.route('/students/under_21_with_A')
+@app.route('/advance_students/')
 def advance_students():
     result = [student for student in students if student['age'] < 21 and student['grade'] == 'A']
     return jsonify(result)
+
+@app.route('/old_students/')
+def old_students():
+    result = [student for student in students if student['age'] > 20]
+    return jsonify(result)
+
+@app.route('/young_students/')
+def young_students():
+    result = [student for student in students if student['age'] < 21 ]
+    return jsonify(result)
+
 
 @app.route('/student_names/')
 def student_names():
